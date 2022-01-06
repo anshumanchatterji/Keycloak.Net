@@ -34,12 +34,13 @@ namespace Keycloak.Net
             _url = url;
         }
 
-            [ObsoleteAttribute]
+        [ObsoleteAttribute]
         public KeycloakClient(string url, string userName, string password)
-            : this(url)
+        : this(url)
         {
             _userName = userName;
             _password = password;
+            _client_id = "admin-cli";
         }
 
         public KeycloakClient(Url url, string clientSecret, string client_id)
@@ -50,8 +51,14 @@ namespace Keycloak.Net
         }
 
         public KeycloakClient(string url, Func<string> getToken)
+            : this(url, "admin-cli", getToken)
+        {
+        }
+
+        public KeycloakClient(string url, string client_id, Func<string> getToken)
             : this(url)
         {
+            _client_id = client_id;
             _getToken = getToken;
         }
 
